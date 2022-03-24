@@ -1,10 +1,19 @@
 package com.example.cursomc.domain;
 
-public class ItemPedido {
+import java.io.Serializable;
+import java.util.Objects;
+
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+
+@Entity
+public class ItemPedido implements Serializable {
+	private static final long serialVersionUID = 1L;
 	
+	@EmbeddedId
 	private ItemPedidoPK id = new ItemPedidoPK();
 	
-	private Double desconoto;
+	private Double desconto;
 	private Integer quantidade;
 	private Double preco;
 	
@@ -12,11 +21,11 @@ public class ItemPedido {
 		
 	}
 
-	public ItemPedido(Pedido pedido, Produto produto, Double desconoto, Integer quantidade, Double preco) {
+	public ItemPedido(Pedido pedido, Produto produto, Double desconto, Integer quantidade, Double preco) {
 		super();
 		id.setPedido(pedido);
 		id.setProduto(produto);
-		this.desconoto = desconoto;
+		this.desconto = desconto;
 		this.quantidade = quantidade;
 		this.preco = preco;
 	}
@@ -37,11 +46,11 @@ public class ItemPedido {
 	}
 
 	public Double getDesconoto() {
-		return desconoto;
+		return desconto;
 	}
 
-	public void setDesconoto(Double desconoto) {
-		this.desconoto = desconoto;
+	public void setDesconoto(Double desconto) {
+		this.desconto = desconto;
 	}
 
 	public Integer getQuantidade() {
@@ -58,6 +67,26 @@ public class ItemPedido {
 
 	public void setPreco(Double preco) {
 		this.preco = preco;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		ItemPedido other = (ItemPedido) obj;
+		return Objects.equals(id, other.id);
 	}
 	
 	
